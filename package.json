@@ -4,7 +4,7 @@
 	"description": "Nodejs & ExpressJs & Typescript Boilerplate",
 	"main": "index.js",
 	"engines": {
-		"node": ">=16.0.0 <19.0.0"
+		"node": "18.x"
 	},
 	"scripts": {
 		"dev": "npm run nodemon",
