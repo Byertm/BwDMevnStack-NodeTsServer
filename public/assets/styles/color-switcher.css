@@ -1,0 +1,172 @@
+.color-switcher {
+	position: fixed;
+	left: 0;
+	bottom: 30px;
+	z-index: 2001;
+	background: #181a23;
+	padding: 20px 20px;
+	padding-top: 25px;
+	border-radius: 5px;
+	-webkit-transform: translateX(-110%);
+	transform: translateX(-110%);
+	transition: left 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out, left 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out, left 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+	box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1),
+		0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12), 0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
+}
+
+.color-switcher.visible {
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	left: 24px;
+}
+
+.color-switcher h5 {
+	font-size: 11px;
+	font-weight: 500;
+	margin-bottom: 0;
+	line-height: 1;
+	letter-spacing: 2px;
+	color: #84899e;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.color-switcher .accent-colors {
+	display: -ms-flexbox;
+	display: flex;
+	padding: 5px;
+	margin: 15px auto 20px auto;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.color-switcher .accent-colors li {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	transition: -webkit-transform 180ms ease-in-out;
+	transition: transform 180ms ease-in-out;
+	transition: transform 180ms ease-in-out, -webkit-transform 180ms ease-in-out;
+	text-align: center;
+	margin: 0 4px;
+}
+
+.color-switcher .accent-colors li:hover:not(.active) {
+	cursor: pointer;
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+}
+
+.color-switcher .accent-colors li i {
+	transition: opacity 180ms ease-in-out;
+	line-height: 1;
+	color: #fff;
+	font-size: 10px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	opacity: 0;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.color-switcher .accent-colors li.active {
+	-webkit-transform: scale(1.5);
+	transform: scale(1.5);
+}
+
+.color-switcher .accent-colors li.active i {
+	opacity: 1;
+}
+
+.color-switcher .accent-colors li.accent-primary {
+	background-color: #007bff;
+}
+
+.color-switcher .accent-colors li.accent-secondary {
+	background-color: #5a6169;
+}
+
+.color-switcher .accent-colors li.accent-success {
+	background-color: #17c671;
+}
+
+.color-switcher .accent-colors li.accent-info {
+	background-color: #00b8d8;
+}
+
+.color-switcher .accent-colors li.accent-warning {
+	background-color: #ffb400;
+}
+
+.color-switcher .accent-colors li.accent-danger {
+	background-color: #c4183c;
+}
+
+.color-switcher .actions {
+	margin: 15px 0;
+}
+
+.color-switcher .close {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	font-size: 15px;
+	background: #2d3044;
+	width: 25px;
+	height: 25px;
+	overflow: hidden;
+	text-align: center;
+	border-radius: 50%;
+	line-height: 25px;
+}
+
+.color-switcher-toggle {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	left: 26px;
+	bottom: 33px;
+	z-index: 2000;
+	width: 45px;
+	height: 45px;
+	background: #2d53fe;
+	color: #fff;
+	text-align: center;
+	line-height: 45px;
+	font-size: 23px;
+	border-radius: 50%;
+	transition: color 0.2s ease-in-out;
+	-webkit-animation-duration: 1.5s;
+	animation-duration: 1.5s;
+	box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1),
+		0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12), 0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
+}
+
+.color-switcher-toggle:hover {
+	cursor: pointer;
+	color: #fff;
+}
+
+.color-switcher-toggle i {
+	top: 0;
+}
+
+@media (prefers-reduced-motion) {
+	.animated {
+		-webkit-animation: unset !important;
+		animation: unset !important;
+		transition: none !important;
+	}
+}
+
+@media (max-width: 860px) {
+	.color-switcher,
+	.color-switcher-toggle {
+		display: none !important;
+	}
+}

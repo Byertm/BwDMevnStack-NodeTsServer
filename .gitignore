@@ -5,6 +5,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+yarn-error.log
+yarn.lock*
+pnpm-lock.yaml
+pnpm-lock.yaml*
+package-lock.json
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -20,6 +25,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+coverage/
 *.lcov
 
 # nyc test coverage
@@ -38,8 +44,11 @@ bower_components
 build/Release
 
 # Dependency directories
+.yarn*
 node_modules/
 jspm_packages/
+build/
+build
 
 # TypeScript v1 declaration files
 typings/
@@ -71,6 +80,8 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env.production
+.env.**
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -102,3 +113,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# DS_Store files
+**/.DS_Store

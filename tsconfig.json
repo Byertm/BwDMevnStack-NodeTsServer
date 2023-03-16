@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"target": "ES2018",
+		"noImplicitAny": true,
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"sourceMap": true,
+		"outDir": "./build",
+		"baseUrl": ".",
+		"paths": {
+			"@@@/*": ["./assets/*"],
+			"@@/*": ["./*"],
+			"@/*": ["./src/*"],
+		},
+		"module": "commonjs",
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["build", "node_modules"]
+}

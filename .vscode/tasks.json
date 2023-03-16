@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build",
+			"detail": "tsc"
+		},
+		{
+			"type": "npm",
+			"script": "dev",
+			"problemMatcher": [],
+			"label": "npm: dev",
+			"detail": "npm run nodemon"
+		},
+		{
+			"label": "Launch Chrome Dev",
+			"command": "Chrome Dev",
+			"windows": {
+				"command": "C:\\Program Files (x86)\\Google\\Chrome Dev\\Application\\chrome.exe"
+			},
+			"args": ["${file}"]
+		}
+	]
+}

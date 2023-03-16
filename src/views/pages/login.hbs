@@ -1,0 +1,52 @@
+<div class="card">
+	<div class="card-body">
+		<img class="auth-form__logo d-table mx-auto mb-3" src="images/shards-dashboards-logo.svg" alt="BwD Admin Dashboard - Login Template" />
+
+		<h5 class="auth-form__title text-center mb-4">Access Your Account</h5>
+
+		<form action="/admin/login" method="post">
+			<div class="form-group">
+				<label for="inputEmail">Email address</label>
+				<input id="inputEmail" type="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="{{email}}" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label for="inputPass">Password</label>
+				<input id="inputPass" type="password" name="password" value="{{password}}" placeholder="Password" class="form-control" />
+			</div>
+
+			{{ error }}
+
+			<div class="form-group mb-3 d-table mx-auto">
+				<div class="custom-control custom-checkbox mb-1">
+					<input id="inputRemember" type="checkbox" class="custom-control-input" />
+					<label for="inputRemember" class="custom-control-label">Remember me for 30 days.</label>
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-pill btn-accent d-table mx-auto">Access Account</button>
+		</form>
+	</div>
+
+	<div class="card-footer border-top">
+		<ul class="auth-form__social-icons d-table mx-auto">
+			<li>
+				<a href="#"><i class="fab fa-facebook-f"></i></a>
+			</li>
+			<li>
+				<a href="#"><i class="fab fa-twitter"></i></a>
+			</li>
+			<li>
+				<a href="#"><i class="fab fa-github"></i></a>
+			</li>
+			<li>
+				<a href="#"><i class="fab fa-google-plus-g"></i></a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="auth-form__meta d-flex mt-4">
+	<a href="/admin/forgot-password">Forgot your password?</a>
+	<a class="ml-auto" href="/admin/register">Create new account?</a>
+</div>

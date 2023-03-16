@@ -1,0 +1,20 @@
+<div class="error">
+	<div class="error__content">
+		{{!--
+		<h2>{{#if (isdefined title)}}{{ title }}{{else}}Dönen Data{{/if}}</h2>
+		--}}
+		<h2>{{#if title}}{{ title }}{{else}}Dönen Data{{/if}}</h2>
+		{{!--
+		<h2>Dönen Data</h2>
+		--}}
+		<pre><code>{{ data }}</code></pre>
+		<a href="/" class="btn btn-accent btn-pill">← Go Back</a>
+	</div>
+	<!-- / .error_content -->
+</div>
+
+<style>
+	pre {
+		white-space: break-spaces;
+	}
+</style>

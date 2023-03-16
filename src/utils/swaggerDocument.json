@@ -1,0 +1,680 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "BwD Admin NodeJS-Express-TypeScript-MongoDB",
+		"description": "NodeJ'lerde CRUD tarzı bir API oluşturmak için neye ihtiyacınız olduğuna dair minimal ve izlemesi kolay bir örnek",
+		"license": {
+			"name": "MIT",
+			"url": "https://opensource.org/licenses/MIT"
+		}
+	},
+	"tags": [
+		{
+			"name": "BwdSwagger",
+			"description": "BwD Admin & Web kullanıcıları için Restfull API"
+		}
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/": {
+			"get": {
+				"tags": [
+					"BwdSwagger"
+				],
+				"summary": "Get healthy system check",
+				"responses": {
+					"200": {
+						"description": "API Healthy"
+					},
+					"400": {
+						"description": "Failed. Bad post data."
+					},
+					"404": {
+						"description": "Failed. Cat not found."
+					},
+					"500": {
+						"description": "API Down"
+					}
+				}
+			}
+		},
+		"/healthy": {
+			"get": {
+				"tags": [
+					"BwdSwagger"
+				],
+				"summary": "Get healthy system check",
+				"responses": {
+					"200": {},
+					"400": {},
+					"404": {},
+					"500": {}
+				}
+			}
+		},
+		"/api/category": {
+			"get": {
+				"tags": [
+					"Category"
+				],
+				"summary": "Get all categories",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Category"
+						}
+					},
+					"400": {
+						"description": "Failed. Bad post data."
+					},
+					"404": {
+						"description": "Failed. Cat not found."
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"Category"
+				],
+				"summary": "New category",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Category"
+						}
+					},
+					"400": {
+						"description": "Failed. Bad post data."
+					},
+					"404": {
+						"description": "Failed. Cat not found."
+					}
+				}
+			}
+		},
+		"/api/category/{id}": {
+			"get": {
+				"tags": [
+					"Category"
+				],
+				"summary": "Get category detail",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "Get category for filter by id",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Category"
+						}
+					},
+					"400": {
+						"description": "Failed. Bad post data."
+					},
+					"404": {
+						"description": "Failed. Cat not found."
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"Category"
+				],
+				"summary": "Category MultiPart Updated",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "Get category for filter by id",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Category"
+						}
+					},
+					"400": {
+						"description": "Failed. Bad post data."
+					},
+					"404": {
+						"description": "Failed. Cat not found."
+					}
+				}
+			},
+			"patch": {
+				"tags": [
+					"Category"
+				],
+				"summary": "Category Partial Updated",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "Get category for filter by id",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Category"
+						}
+					},
+					"400": {
+						"description": "Failed. Bad post data."
+					},
+					"404": {
+						"description": "Failed. Cat not found."
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"Category"
+				],
+				"summary": "Category delete by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "Get category for filter by id",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Category"
+						}
+					},
+					"400": {
+						"description": "Failed. Bad post data."
+					},
+					"404": {
+						"description": "Failed. Cat not found."
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Category": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"url": {
+					"type": "string"
+				},
+				"slug": {
+					"type": "string"
+				},
+				"parentId": {
+					"type": "string"
+				},
+				"createUserId": {
+					"type": "string"
+				},
+				"updateUserId": {
+					"type": "string"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Comment": {
+			"type": "object",
+			"properties": {
+				"comment": {
+					"type": "string"
+				},
+				"author": {
+					"type": "string"
+				},
+				"postId": {
+					"type": "string"
+				},
+				"parentId": {
+					"type": "string"
+				},
+				"createUserId": {
+					"type": "string"
+				},
+				"updateUserId": {
+					"type": "string"
+				},
+				"isBanned": {
+					"type": "boolean"
+				},
+				"isHidden": {
+					"type": "boolean"
+				},
+				"isActive": {
+					"type": "boolean"
+				},
+				"children": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Comment"
+					}
+				}
+			}
+		},
+		"Education": {
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"scholl": {
+					"type": "string"
+				},
+				"section": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"startDate": {
+					"type": "string"
+				},
+				"finishDate": {
+					"type": "string"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Experience": {
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"company": {
+					"type": "string"
+				},
+				"section": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"startDate": {
+					"type": "string"
+				},
+				"finishDate": {
+					"type": "string"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Post": {
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"slug": {
+					"type": "string"
+				},
+				"preTitle": {
+					"type": "string"
+				},
+				"content": {
+					"type": "string"
+				},
+				"imageUrl": {
+					"type": "string"
+				},
+				"createUserId": {
+					"type": "string"
+				},
+				"updateUserId": {
+					"type": "string"
+				},
+				"author": {
+					"type": "string"
+				},
+				"category": {
+					"type": "string"
+				},
+				"tags": {
+					"type": "array",
+					"$ref": "#/definitions/Tag"
+				},
+				"comments": {
+					"type": "array",
+					"$ref": "#/definitions/Comment"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Project": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"imageUrl": {
+					"type": "string"
+				},
+				"demoPreviewUrl": {
+					"type": "string"
+				},
+				"deployUrl": {
+					"type": "string"
+				},
+				"categoryId": {
+					"type": "string"
+				},
+				"startDate": {
+					"type": "string"
+				},
+				"finishDate": {
+					"type": "string"
+				},
+				"createUserId": {
+					"type": "string"
+				},
+				"updateUserId": {
+					"type": "string"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Role": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Section": {
+			"type": "object",
+			"properties": {
+				"key": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				},
+				"subSections": {
+					"type": "array",
+					"$ref": "#/definitions/Section"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Site": {
+			"type": "object",
+			"properties": {
+				"owner": {
+					"type": "object",
+					"properties": {
+						"firstName": {
+							"type": "string"
+						},
+						"lastName": {
+							"type": "string"
+						},
+						"fullName": {
+							"type": "string"
+						},
+						"birthDate": {
+							"type": "string"
+						},
+						"info": {
+							"type": "object",
+							"properties": {
+								"about": {
+									"type": "object",
+									"properties": {
+										"title": {
+											"type": "string"
+										},
+										"short": {
+											"type": "string"
+										},
+										"full": {
+											"type": "string"
+										},
+										"imageUrl": {
+											"type": "string"
+										},
+										"videoUrl": {
+											"type": "string"
+										}
+									}
+								},
+								"titles": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"icon": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"contacts": {
+							"type": "object",
+							"properties": {
+								"address": {
+									"type": "object",
+									"properties": {
+										"short": {
+											"type": "string"
+										},
+										"full": {
+											"type": "string"
+										},
+										"lonlat": {
+											"type": "string"
+										}
+									}
+								},
+								"email": {
+									"type": "string"
+								},
+								"phone": {
+									"type": "string"
+								},
+								"website": {
+									"type": "string"
+								}
+							}
+						},
+						"socialMedias": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"url": {
+										"type": "string"
+									},
+									"icon": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"logo": {
+					"type": "object",
+					"properties": {
+						"imageUrl": {
+							"type": "string"
+						},
+						"text": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"Skill": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"url": {
+					"type": "string"
+				},
+				"imgUrl": {
+					"type": "string"
+				},
+				"ratio": {
+					"type": "integer"
+				},
+				"isSpecial": {
+					"type": "boolean"
+				},
+				"isLanguage": {
+					"type": "boolean"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Store": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"image": {
+					"type": "string"
+				}
+			}
+		},
+		"Tag": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"slug": {
+					"type": "string"
+				},
+				"url": {
+					"type": "string"
+				},
+				"createUserId": {
+					"type": "string"
+				},
+				"updateUserId": {
+					"type": "string"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"Testimonial": {
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"content": {
+					"type": "string"
+				},
+				"author": {
+					"type": "string"
+				},
+				"authorImage": {
+					"type": "string"
+				},
+				"createUserId": {
+					"type": "string"
+				},
+				"updateUserId": {
+					"type": "string"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		},
+		"User": {
+			"type": "object",
+			"properties": {
+				"first_name": {
+					"type": "string"
+				},
+				"last_name": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"roles": {
+					"type": "array",
+					"$ref": "#/definitions/Role"
+				},
+				"isActive": {
+					"type": "boolean"
+				}
+			}
+		}
+	}
+}
