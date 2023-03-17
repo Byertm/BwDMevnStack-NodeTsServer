@@ -3,7 +3,6 @@ import passport from 'passport';
 import * as controller from '@/controllers/category.controller';
 import categoryValidationSchema from '@/validations/category.validation';
 import { JoiValidate } from '@/middlewares/joi-validate';
-// import upload from '@/middlewares/imageUpload';
 
 const router = express.Router();
 
