@@ -29,7 +29,7 @@ mongoose
 		logger.info('Mongoose connection done');
 
 		app.listen(APP_PORT, () => {
-			debugLog(`Server running at http://localhost:${APP_PORT}`);
+			debugLog(`Server running at ${APP_URI}`);
 			logger.info(`server listening on ${APP_PORT}`);
 			logger.info(`Server Healty: ${APP_URI}`);
 		});

@@ -1,8 +1,8 @@
 declare global {
 	export namespace NodeJS {
 		export interface ProcessEnv {
-			readonly NODE_ENV: string;
 			readonly PORT: string;
+			// readonly NODE_ENV: string;
 			readonly CORS_ORIGIN: string;
 
 			/**
@@ -16,11 +16,19 @@ declare global {
 			/**
 			 * ### APP ENV
 			 */
-			readonly APP_ENV?: string;
+			readonly APP_ENV?: 'dev' | 'development' | 'prod' | 'production' | 'test' | 'stage';
 			/**
 			 * ### APP PREFIX PATH
 			 */
 			readonly APP_PREFIX_PATH?: string;
+			/**
+			 * ### NODE ENV
+			 */
+			readonly NODE_ENV?: 'dev' | 'development' | 'prod' | 'production' | 'test' | 'stage';
+			/**
+			 * ### NODE MODULES CACHE
+			 */
+			readonly NODE_MODULES_CACHE?: boolean;
 			/**
 			 * ### JWT SECRET
 			 */
@@ -105,4 +113,4 @@ declare global {
 	}
 }
 
-export {};
+export { };

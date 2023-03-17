@@ -167,7 +167,7 @@ app.get('/', (_req: Request, res: Response) => {
 
 app.use(APP_PREFIX_PATH, routes);
 // Todo: Netlify Fuctions Araştırılacak.
-// app.use('/.netlify/functions/server', routes);
+app.use('/.netlify/functions/server', routes);
 
 // Send back a 404 error for any unknown api request
 app.use((_req: Request, _res: Response, next: NextFunction) => {
@@ -180,6 +180,6 @@ app.use(errorConverter);
 // Handle error
 app.use(errorHandler);
 
-export const handler = () => serverless(app);
+export const handler = serverless(app);
 
 export default app;
