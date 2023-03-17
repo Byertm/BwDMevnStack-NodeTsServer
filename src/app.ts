@@ -88,22 +88,26 @@ app.use(compression());
 // Cors
 // app.use(cors());
 
-const allowedDomains: Array<string> = ['https://bwd-mevn-stack-front.vercel.app/', 'https://bwd-mevn-stack-admin.vercel.app/'];
+const allowedDomains: Array<string> = ['https://bwd-mevn-stack-front.vercel.app/', 'https://bwd-mevn-stack-admin.vercel.app/', 'https://bwd-mevn-stack-front.vercel.app', 'https://bwd-mevn-stack-admin.vercel.app'];
 const localPorts: Array<number> = [3000, 4173, 4174, 5173, 5174, 5175, 8080, 9000];
 localPorts.forEach((port) => allowedDomains.push(`http://localhost:${port.toString()}`));
 
 app.use(
 	cors({
-		origin: function (origin, callback) {
-			// bypass the requests with no origin (like curl requests, mobile apps, etc )
-			if (!origin) return callback(null, true);
+		// origin: function (origin, callback) {
+		// 	// bypass the requests with no origin (like curl requests, mobile apps, etc )
+		// 	if (!origin) return callback(null, true);
 
-			if (allowedDomains.indexOf(origin) === -1) {
-				const msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
-				return callback(new Error(msg), false);
-			}
-			return callback(null, true);
-		}
+		// 	if (allowedDomains.indexOf(origin) === -1) {
+		// 		const msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
+		// 		return callback(new Error(msg), false);
+		// 	}
+		// 	return callback(null, true);
+		// }
+		origin: [...allowedDomains],
+		credentials: true,
+		preflightContinue: true,
+		optionsSuccessStatus: 204
 	})
 );
 
