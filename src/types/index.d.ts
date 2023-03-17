@@ -6,6 +6,10 @@ declare global {
 			readonly CORS_ORIGIN: string;
 
 			/**
+			 * ### CORS ORIGINS
+			 */
+			readonly CORS_ORIGINS?: Array<string>;
+			/**
 			 * ### APP URL
 			 */
 			readonly APP_URI?: string;

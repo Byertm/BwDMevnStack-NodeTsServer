@@ -21,6 +21,7 @@ import {
 	APP_PREFIX_PATH,
 	ASSETS_PATH,
 	ASSETS_PATH_SLUG,
+	CORS_OPTIONS,
 	FILE_CACHE_TIME,
 	FILE_PATH,
 	IMAGE_PATH_SLUG,
@@ -86,30 +87,7 @@ app.use(mongoSanitize());
 app.use(compression());
 
 // Cors
-// app.use(cors());
-
-const allowedDomains: Array<string> = ['https://bwd-mevn-stack-front.vercel.app/', 'https://bwd-mevn-stack-admin.vercel.app/', 'https://bwd-mevn-stack-front.vercel.app', 'https://bwd-mevn-stack-admin.vercel.app'];
-const localPorts: Array<number> = [3000, 4173, 4174, 5173, 5174, 5175, 8080, 9000];
-localPorts.forEach((port) => allowedDomains.push(`http://localhost:${port.toString()}`));
-
-app.use(
-	cors({
-		// origin: function (origin, callback) {
-		// 	// bypass the requests with no origin (like curl requests, mobile apps, etc )
-		// 	if (!origin) return callback(null, true);
-
-		// 	if (allowedDomains.indexOf(origin) === -1) {
-		// 		const msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
-		// 		return callback(new Error(msg), false);
-		// 	}
-		// 	return callback(null, true);
-		// }
-		origin: [...allowedDomains],
-		credentials: true,
-		preflightContinue: true,
-		optionsSuccessStatus: 204
-	})
-);
+app.use(cors(CORS_OPTIONS));
 
 // Assets Settings
 app.use(express.static(join(process.cwd(), PUBLIC_PATH))); // * => public
@@ -159,7 +137,7 @@ createUploadDir(UPLOAD_DIR);
 //Belki silinebilir.
 createUploadDir(UPLOAD_MAN_DIR);
 
-app.get('/', (_req: Request, res: Response) => {
+app.get(APP_PREFIX_PATH, (_req: Request, res: Response) => {
 	res.redirect('/healthy');
 });
 
