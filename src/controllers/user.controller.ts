@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import passport from 'passport';
+// import passport from 'passport';
 import type { IUser } from '@/models/user.model';
 import { User } from '@/models/user.model';
 import ApiError from '@/utils/ApiError';
@@ -8,11 +8,7 @@ import logger from '@/config/logger';
 
 const PRIVATE_URI_SCHEME_REDIRECT = '/admin';
 
-type RenderOption = {
-	contentText: string;
-	title: string;
-	error?: any;
-};
+type RenderOption = { contentText: string; title: string; error?: unknown; };
 
 // Todo: Handlebars layout ve partials içinde user ve islogged bilgilerini okuma çözülecek.
 const setLocalUser = (req: Request, res: Response, user: any | null | undefined) => {
@@ -70,45 +66,46 @@ const allLogout = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
-	let renderOptions: RenderOption = { contentText: 'login page', title: 'Login' };
-	try {
-		// req.headers.authorization = `Bearer ${token}`;
-		// res.setHeader('Authorization', `Bearer ${token}`);
+	return getLogin(req, res);
+	// let renderOptions: RenderOption = { contentText: 'login page', title: 'Login' };
+	// try {
+	// 	// req.headers.authorization = `Bearer ${token}`;
+	// 	// res.setHeader('Authorization', `Bearer ${token}`);
 
-		passport.authenticate('local', { session: false, failureRedirect: `${PRIVATE_URI_SCHEME_REDIRECT}/login` }, (error, _user) => {
-			if (error || !_user) res.status(400).json({ error });
+	// 	passport.authenticate('local', { session: false, failureRedirect: `${PRIVATE_URI_SCHEME_REDIRECT}/login` }, (error: any, _user: any) => {
+	// 		if (error || !_user) res.status(400).json({ error });
 
-			/** This is what ends up in our JWT */
-			const payload = {
-				username: _user.email,
-				expires: Date.now() + 1000 * 60 * 10
-			};
+	// 		/** This is what ends up in our JWT */
+	// 		const payload = {
+	// 			username: _user.email,
+	// 			expires: Date.now() + 1000 * 60 * 10
+	// 		};
 
-			/** Assigns payload to req.user */
-			req.login(payload, { session: false }, (error) => {
-				if (error) {
-					renderOptions.error = error;
-					res.render(`${PRIVATE_URI_SCHEME_REDIRECT}/login`, renderOptions);
-				}
+	// 		/** Assigns payload to req.user */
+	// 		req.login(payload, { session: false }, (error) => {
+	// 			if (error) {
+	// 				renderOptions.error = error;
+	// 				res.render(`${PRIVATE_URI_SCHEME_REDIRECT}/login`, renderOptions);
+	// 			}
 
-				/** Generate a signed json web token and return it in the response */
-				// const token = jwt.sign(JSON.stringify(payload), keys.secret);
-				const token = `${_user.token}`;
+	// 			/** Generate a signed json web token and return it in the response */
+	// 			// const token = jwt.sign(JSON.stringify(payload), keys.secret);
+	// 			const token = `${_user.token}`;
 
-				/** Assign our jwt to the cookie */
-				res.cookie('jwt', token, { httpOnly: true, secure: false }); // Note: Production'da secure true olmalı unutma!
-				setLocalUser(req, res, _user);
-				// res.status(httpStatus.OK).json({ username: payload.username });
-				res.redirect(httpStatus.FOUND, `${PRIVATE_URI_SCHEME_REDIRECT}`);
-			});
-		})(req, res);
-	} catch (e) {
-		setLocalUser(req, res, null);
-		res.locals.error = e;
-		if (res.locals.error) renderOptions.error = res.locals.error;
-		res.render(`${PRIVATE_URI_SCHEME_REDIRECT}/login`, renderOptions);
-		next(e);
-	}
+	// 			/** Assign our jwt to the cookie */
+	// 			res.cookie('jwt', token, { httpOnly: true, secure: false }); // Note: Production'da secure true olmalı unutma!
+	// 			setLocalUser(req, res, _user);
+	// 			// res.status(httpStatus.OK).json({ username: payload.username });
+	// 			res.redirect(httpStatus.FOUND, `${PRIVATE_URI_SCHEME_REDIRECT}`);
+	// 		});
+	// 	})(req, res);
+	// } catch (e) {
+	// 	setLocalUser(req, res, null);
+	// 	res.locals.error = e;
+	// 	if (res.locals.error) renderOptions.error = res.locals.error;
+	// 	res.render(`${PRIVATE_URI_SCHEME_REDIRECT}/login`, renderOptions);
+	// 	next(e);
+	// }
 };
 
 const postRegister = async (req: Request, res: Response, next: NextFunction) => {
