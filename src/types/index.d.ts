@@ -8,7 +8,7 @@ declare global {
 			/**
 			 * ### CORS ORIGINS
 			 */
-			readonly CORS_ORIGINS?: Array<string>;
+			readonly CORS_ORIGINS?: Array<string> | string;
 			/**
 			 * ### APP URL
 			 */
@@ -20,7 +20,7 @@ declare global {
 			/**
 			 * ### APP ENV
 			 */
-			readonly APP_ENV?: 'dev' | 'development' | 'prod' | 'production' | 'test' | 'stage';
+			readonly APP_ENV?: 'local' | 'dev' | 'development' | 'prod' | 'production' | 'test' | 'stage' | 'staging';
 			/**
 			 * ### APP PREFIX PATH
 			 */
@@ -28,7 +28,7 @@ declare global {
 			/**
 			 * ### NODE ENV
 			 */
-			readonly NODE_ENV?: 'dev' | 'development' | 'prod' | 'production' | 'test' | 'stage';
+			readonly NODE_ENV?: 'local' | 'dev' | 'development' | 'prod' | 'production' | 'test' | 'stage' | 'staging';
 			/**
 			 * ### NODE MODULES CACHE
 			 */
@@ -117,4 +117,4 @@ declare global {
 	}
 }
 
-export { };
+export {};

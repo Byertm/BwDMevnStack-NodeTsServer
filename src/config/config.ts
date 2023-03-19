@@ -1,5 +1,6 @@
 export const ENVIRONMENT = process.env.APP_ENV || 'development';
-export const IS_PRODUCTION = ENVIRONMENT === 'production';
+export const IS_PRODUCTION = ENVIRONMENT === 'prod' || ENVIRONMENT === 'production';
+export const IS_STAGING = ENVIRONMENT === 'stage' || ENVIRONMENT === 'staging';
 export const IS_DEBUG = process.env.DEBUG || true;
 export const IS_TEST = ENVIRONMENT === 'test';
 export const APP_PORT = Number(process.env.PORT) || Number(process.env.APP_PORT) || 9000;
@@ -32,16 +33,18 @@ export const UPLOAD_DIR = process.env.UPLOAD_DIR || 'uploads/images';
 export const UPLOAD_MAN_DIR = process.env.UPLOAD_MAN_DIR || 'uploads/manager';
 
 const getWhiteListDomains = () => {
-	const allowedDomains: Array<string> = process.env.CORS_ORIGINS || [
-		'https://bwd-mevn-stack-front.vercel.app/',
-		'https://bwd-mevn-stack-admin.vercel.app/',
-		'https://bwd-mevn-stack-front.vercel.app',
-		'https://bwd-mevn-stack-admin.vercel.app'
-	];
+	const ADMIN_PROJECT_LINKS = ['https://bwd-mevn-stack-admin.vercel.app/', 'https://bwd-mevn-stack-admin.vercel.app'];
+	const FRONT_PROJECT_LINKS = ['https://bwd-mevn-stack-front.vercel.app/', 'https://bwd-mevn-stack-front.vercel.app'];
+	const LOCAL_DEV_LINKS_AND_PORTS = ['http://localhost/', 'http://localhost'];
+
 	if (!IS_PRODUCTION) {
 		const localPorts: Array<number> = [3000, 4173, 4174, 5173, 5174, 5175, 8080, 9000];
-		localPorts.forEach((port) => allowedDomains.push(`http://localhost:${port.toString()}`));
+		localPorts.forEach((port) => LOCAL_DEV_LINKS_AND_PORTS.push(`http://localhost:${port.toString()}`));
 	}
+
+	const INITIAL_CORS_ORIGINS = [...ADMIN_PROJECT_LINKS, ...FRONT_PROJECT_LINKS, ...LOCAL_DEV_LINKS_AND_PORTS];
+	const allowedDomains: Array<string> = typeof process.env?.CORS_ORIGINS === 'string' ? JSON.parse(process.env.CORS_ORIGINS) : INITIAL_CORS_ORIGINS || INITIAL_CORS_ORIGINS;
+
 	return allowedDomains;
 };
 
