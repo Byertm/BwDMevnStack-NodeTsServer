@@ -4,6 +4,8 @@ import * as controller from '@/controllers/auth.controller';
 
 const router = express.Router();
 
+router.get('/about', controller.getAbout);
+router.get('/contact', controller.getContact);
 router.get('/test', controller.getTest);
 router.get('/sendmail', controller.getSendMail);
 router.get('/healthy', controller.getHealthy);

@@ -17,7 +17,7 @@ export const isAuth: Handler = async (req: Request, res: Response, next: NextFun
 			req.user = decodedToken;
 			logger.info(`decodedToken: ${decodedToken}`);
 		} catch (error) {
-			//? Token exprired için özel bir kontrol var dı onu dene!!!
+			//? Token exprired için özel bir kontrol olacaktı onu dene!!!
 			logger.error('Token expired');
 			return res.status(httpStatus.UNAUTHORIZED).json({ message: 'Token expired' });
 		}

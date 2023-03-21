@@ -7,6 +7,14 @@ import { Role } from '@/models/role.model';
 import ApiError from '@/utils/ApiError';
 import logger from '@/config/logger';
 
+const getAbout = async (_req: Request, res: Response) => {
+	res.render('home', { contentText: 'Hakkında', title: 'Hakkında Sayfası', layout: 'main' });
+};
+
+const getContact = async (_req: Request, res: Response) => {
+	res.render('home', { contentText: 'Contact', title: 'İletişim Sayfası', layout: 'main' });
+};
+
 const getTest = async (_req: Request, res: Response) => {
 	res.render('home', { contentText: 'Healthy', title: 'Express Typescript', layout: 'main' });
 };
@@ -84,5 +92,5 @@ const getNotFound = async (req: Request, res: Response) => {
 	logger.error(req.url);
 };
 
-export { getTest, getSendMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
-export default { getTest, getSendMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
+export { getTest, getAbout, getContact, getSendMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
+export default { getTest, getAbout, getContact, getSendMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
