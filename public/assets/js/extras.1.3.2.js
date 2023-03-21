@@ -1,13 +1,13 @@
 "use strict";
 ! function (e) {
 	jQuery(document).ready(function () {
-		var t = {
+		let t = {
 			getItem: function (e) {
 				return e && decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(e).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null
 			},
 			setItem: function (e, t, o, s, a, n) {
 				if (!e || /^(?:expires|max\-age|path|domain|secure)$/i.test(e)) return !1;
-				var i = "";
+				let i = "";
 				if (o) switch (o.constructor) {
 					case Number:
 						i = o === 1 / 0 ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + o;
@@ -27,7 +27,7 @@
 				return !(!e || /^(?:expires|max\-age|path|domain|secure)$/i.test(e)) && new RegExp("(?:^|;\\s*)" + encodeURIComponent(e).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=").test(document.cookie)
 			},
 			keys: function () {
-				for (var e = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/), t = e.length, o = 0; o < t; o++) e[o] = decodeURIComponent(e[o]);
+				for (let e = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/), t = e.length, o = 0; o < t; o++) e[o] = decodeURIComponent(e[o]);
 				return e
 			}
 		},
@@ -40,7 +40,7 @@
 			a.addClass("bounceIn")
 		}, 3e3), a.find(".close").click(function () {
 			a.addClass("hidden");
-			var e = new Date;
+			let e = new Date;
 			e.setDate(e.getDate() + 1), t.setItem(o, !0, e)
 		}), a.find(".pp-intro-bar").click(function (s) {
 			s.target === this && e(this).parent().hasClass("hidden") && (t.removeItem(o), a.removeClass("hidden"))
@@ -52,23 +52,23 @@
 				data: {
 					category: "product-demo",
 					action: "cta-upsell",
-					label: "shards-dashboard-pro"
+					label: "bwd-dashboard-pro"
 				}
 			}), window.location = e.target.href
 		});
-		var n, i = e(".color-switcher .accent-colors"),
+		let n, i = e(".color-switcher .accent-colors"),
 			r = e("#main-stylesheet"),
 			c = r.attr("href"),
 			d = r.attr("data-version");
 		i.on("click", "li", function () {
-			var t = e(this).attr("data-color"),
+			let t = e(this).attr("data-color"),
 				o = "assets/styles/accents/" + t + "." + d + ".css";
 			"primary" == t && (o = c), i.find("li.active").removeClass("active"), e(this).addClass("active"), r.attr("href", o),
 				function (t) {
-					var o = e("#main-logo");
+					let o = e("#main-logo");
 					n || (n = o.attr("src"));
 					if ("primary" === t) return void o.attr("src", n);
-					o.attr("src", "images/shards-dashboards-logo-" + t + ".svg")
+					o.attr("src", "images/bwd-dashboards-logo-" + t + ".svg")
 				}(t), void 0 !== window.ubdChart && void 0 !== window.BlogOverviewUsers && function (t) {
 					t = l[t], ubdChart.data.datasets[0].backgroundColor = [u(t, .9), u(t, .5), u(t, .3)], ubdChart.update(), e(".ubd-stats__legend .ubd-stats__item:nth-child(1) i").attr("style", "color:" + u(t, .9) + ";"), e(".ubd-stats__legend .ubd-stats__item:nth-child(2) i").attr("style", "color:" + u(t, .5) + ";"), e(".ubd-stats__legend .ubd-stats__item:nth-child(3) i").attr("style", "color:" + u(t, .3) + ";")
 				}(t)
@@ -101,7 +101,7 @@
 					},
 					twitter: {
 						count: "horizontal",
-						via: "DesignRevision",
+						via: "byertm",
 						hashtags: "bootstrap,uikit"
 					}
 				},
@@ -112,7 +112,7 @@
 		}
 		e(".color-switcher-toggle").click(p), e(".color-switcher .close").click(p);
 
-		var m = new Date;
+		let m = new Date;
 
 		function p() {
 			e(".color-switcher").toggleClass("visible"), e(".color-switcher").hasClass("visible") ? t.setItem("_sd_cs_visible", !0, m) : t.setItem("_sd_cs_visible", !1, m)
@@ -121,7 +121,7 @@
 			e(".loading-overlay").fadeOut(250)
 		}, 2e3), e(document).on("click", "a.extra-action", function (t) {
 			t.preventDefault(), t.stopPropagation();
-			var o = e(this).attr("href");
+			let o = e(this).attr("href");
 			! function () {
 				try {
 					return window.self !== window.top
