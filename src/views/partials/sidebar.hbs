@@ -37,42 +37,106 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link active" href="/admin/me">
-					<i class="material-icons">edit</i>
+					<i class="material-icons">person</i>
 					<span>My Information</span>
 				</a>
 			</li>
-			{{/if}} {{!--
+			{{/if}}
 			<li class="nav-item">
-				<a class="nav-link" href="/admin/posts">
+				<a class="nav-link" href="/api/category">
 					<i class="material-icons">vertical_split</i>
-					<span>Blog Posts</span>
+					<span>Categories</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/admin/new-post">
+				<a class="nav-link" href="/api/comment">
+					<i class="material-icons">vertical_split</i>
+					<span>Comments</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/api/education">
+					<i class="material-icons">vertical_split</i>
+					<span>Educations</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/api/experience">
+					<i class="material-icons">vertical_split</i>
+					<span>Experiences</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/api/post">
 					<i class="material-icons">note_add</i>
-					<span>Add New Post</span>
+					<span>Posts</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/admin/api">
-					<i class="material-icons">view_module</i>
-					<span>Forms &amp; Components</span>
+				<a class="nav-link" href="/api/project">
+					<i class="material-icons">vertical_split</i>
+					<span>Projects</span>
+				</a>
+			</li>
+			{{#if isLogged}}
+			<li class="nav-item">
+				<a class="nav-link" href="/api/role">
+					<i class="material-icons">vertical_split</i>
+					<span>Roles</span>
+				</a>
+			</li>
+			{{/if}}
+			<li class="nav-item">
+				<a class="nav-link" href="/api/skill">
+					<i class="material-icons">vertical_split</i>
+					<span>Skills</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/admin/">
+				<a class="nav-link" href="/api/stores">
 					<i class="material-icons">table_chart</i>
-					<span>Tables</span>
+					<span>Stores</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/admin/profile">
-					<i class="material-icons">person</i>
-					<span>User Profile</span>
+				<a class="nav-link" href="/api/tag">
+					<i class="material-icons">vertical_split</i>
+					<span>Tags</span>
 				</a>
 			</li>
-			--}} {{!--
+			<li class="nav-item">
+				<a class="nav-link" href="/api/testimonial">
+					<i class="material-icons">vertical_split</i>
+					<span>Testimonials</span>
+				</a>
+			</li>
+			{{#if isLogged}}
+			<li class="nav-item">
+				<a class="nav-link" href="/api/user">
+					<i class="material-icons">person</i>
+					<span>User Informations</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/api/file">
+					<i class="material-icons">vertical_split</i>
+					<span>File Management</span>
+				</a>
+			</li>
+			{{/if}}
+			<li class="nav-item">
+				<a class="nav-link" href="/api/site">
+					<i class="material-icons">view_module</i>
+					<span>Site Informations</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/api/section">
+					<i class="material-icons">vertical_split</i>
+					<span>Sections</span>
+				</a>
+			</li>
+			{{!--
 			<li class="nav-item">
 				<a class="nav-link" href="/errors">
 					<i class="material-icons">error</i>
@@ -86,12 +150,14 @@
 					<span>Swagger</span>
 				</a>
 			</li>
-			{{!-- <li class="nav-item">
+			{{!--
+			<li class="nav-item">
 				<a class="nav-link" href="/admin/logout">
 					<i class="material-icons">logout</i>
 					<span>Çıkış</span>
 				</a>
-			</li> --}}
+			</li>
+			--}}
 		</ul>
 	</div>
 </aside>

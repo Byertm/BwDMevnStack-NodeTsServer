@@ -1,21 +1,21 @@
 <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
 	<ul class="nav">
+		{{#if isLogged}}
 		<li class="nav-item">
 			<a href="/admin" class="nav-link">Dashboard</a>
+		</li>
+		{{/if}}
+		<li class="nav-item">
+			<a href="/healthy" class="nav-link">Check API</a>
 		</li>
 		<li class="nav-item">
 			<a href="/about" class="nav-link">About</a>
 		</li>
 		<li class="nav-item">
-			<a href="/" class="nav-link">Check API</a>
-		</li>
-		<li class="nav-item">
-			<a href="/swagger" class="nav-link">Swagger</a>
-		</li>
-		<li class="nav-item">
-			<a href="/" class="nav-link">Contact</a>
+			<a href="/contact" class="nav-link">Contact</a>
 		</li>
 	</ul>
+
 	<span class="copyright ml-auto my-auto mr-2"
 		>Copyright © 2023
 		<a href="https://www.ersinbiltekin.dev" rel="nofollow">Bwd Admin</a>
