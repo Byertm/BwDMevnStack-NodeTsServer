@@ -16,7 +16,7 @@ const getContact = async (_req: Request, res: Response) => {
 };
 
 const getTest = async (_req: Request, res: Response) => {
-	res.render('home', { contentText: 'Healthy', title: 'Express Typescript', layout: 'main' });
+	res.render('test', { contentText: 'Test', title: 'Test Pages', layout: 'main' });
 };
 
 const getSendMail = async (_req: Request, res: Response) => {

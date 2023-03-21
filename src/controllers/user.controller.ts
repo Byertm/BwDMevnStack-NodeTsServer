@@ -8,7 +8,7 @@ import logger from '@/config/logger';
 
 const PRIVATE_URI_SCHEME_REDIRECT = '/admin';
 
-type RenderOption = { contentText: string; title: string; error?: unknown; };
+type RenderOption = { contentText: string; title: string; error?: unknown };
 
 // Todo: Handlebars layout ve partials içinde user ve islogged bilgilerini okuma çözülecek.
 const setLocalUser = (req: Request, res: Response, user: any | null | undefined) => {
@@ -66,7 +66,13 @@ const allLogout = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
-	return getLogin(req, res);
+	const user = await User.findOne({ _id: req.params.id, isActive: true }).populate({ path: 'roles', match: { isActive: true }, select: '-_id name' });
+	if (!!user) {
+		const { hash_password, salt, ...resUser } = user;
+		setLocalUser(req, res, resUser);
+	}
+	res.redirect('/');
+	// return getLogin(req, res);
 	// let renderOptions: RenderOption = { contentText: 'login page', title: 'Login' };
 	// try {
 	// 	// req.headers.authorization = `Bearer ${token}`;
