@@ -4,6 +4,7 @@
 	justify-content: center;
 	align-items: center;
 	height: calc(100vh - 120px);
+    text-align: center;
 }
 
 .bwd-content {
@@ -13,6 +14,7 @@
 	justify-content: center;
 	align-items: center;
 	/* height: calc(100vh - 120px); */
+    text-align: center;
 }
 
 .bwd-content-grid {
