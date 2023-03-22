@@ -49,6 +49,31 @@
 	// 	}
 	// });
 
+	const setTheme = (theme) => {
+		localStorage.setItem("user-theme", theme);
+		userTheme = theme;
+		document.documentElement.className = theme;
+	};
+
+	const getTheme = () => {
+		return localStorage.getItem("user-theme");
+	};
+
+	const toggleTheme = (e) => {
+		e.preventDefault();
+		const activeTheme = localStorage.getItem("user-theme");
+		if (activeTheme === "light") setTheme("dark");
+		else setTheme("light");
+	};
+
+	const getMediaPreference = () => {
+		const hasDarkPreference = window.matchMedia("(prefers-color-scheme: dark)").matches;
+		if (hasDarkPreference) return "dark";
+		else return "light";
+	};
+
+	const userTheme = getTheme() || getMediaPreference();
+
 	$(document).ready(function () {
 		/**
 		 * Dropdown adjustments
@@ -67,8 +92,13 @@
 		/**
 		 * Sidebar toggles
 		 */
-		$('.toggle-sidebar').click(function (e) {
-			$('.main-sidebar').toggleClass('open');
-		});
+		$('.toggle-sidebar').click(function (_e) { $('.main-sidebar').toggleClass('open'); });
+
+		setTheme(userTheme);
+
+		/**
+		 * Sidebar toggles
+		 */
+		$('.theme-switcher').click(function (e) { toggleTheme(e); });
 	});
 })));
