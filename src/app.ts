@@ -14,6 +14,7 @@ import debug from 'debug';
 import cors from 'cors';
 import routes from '@/routes';
 import { morganSuccessHandler, morganErrorHandler } from '@/config/morgan';
+import { isSession } from '@/middlewares/auth';
 import { errorConverter, errorHandler } from '@/middlewares/error';
 import { anonymousStrategy, jwtLocalStrategy, jwtStrategy, localStrategy } from '@/config/passport';
 import {
@@ -56,6 +57,8 @@ passport.use('localJWT', jwtLocalStrategy);
 app.use(passport.initialize());
 app.use(session({ secret: JWT_SECRET, resave: false, saveUninitialized: true })); //express-session
 // app.use(passport.session()); //express-session
+// ! Note: Bu middleware kontrol edilecek.
+app.use(isSession);
 
 if (!IS_TEST) {
 	app.use(morganSuccessHandler);

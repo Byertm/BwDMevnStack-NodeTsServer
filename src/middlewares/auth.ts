@@ -27,3 +27,18 @@ export const isAuth: Handler = async (req: Request, res: Response, next: NextFun
 
 	return res.send({ error: 'Please provide a token' });
 };
+
+export const isSession: Handler = async (req: Request, res: Response, next: NextFunction) => {
+	res.locals.session = req.session;
+	res.locals.cookie = req.session.cookie;
+	res.locals.user = req.user;
+	res.locals.token = !!res.locals.user?.token;
+	res.locals.isLogged = !!res.locals.user?.name && !!res.locals.user?.token;
+
+	console.log({ 'res.locals': res.locals });
+
+	if (req.session.cookie) {
+	}
+
+	next();
+};

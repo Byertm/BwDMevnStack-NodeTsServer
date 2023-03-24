@@ -5,8 +5,9 @@ export const IS_DEBUG = process.env.DEBUG || true;
 export const IS_TEST = ENVIRONMENT === 'test';
 export const APP_PORT = Number(process.env.PORT) || Number(process.env.APP_PORT) || 9000;
 export const APP_PREFIX_PATH = process.env.APP_PREFIX_PATH || '/';
-export const JWT_SECRET = process.env.JWT_SECRET || 'ersinbiltekin';
-export const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'ersinbiltekin57';
+export const JWT_SECRET = process.env.JWT_SECRET || 'a6faf5c877dbca5a7303beeaf89400ed4d8bbdd40b708ca78eb23535245ccdf3';
+export const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'dae8585898d59e858c1e14309c8d2ca716948eb614a1ea82f4bf688b55d9f1d0';
+export const SESSION_SECRET = process.env.SESSION_SECRET || '0e5ab7d52f18ab5174e6ff8d83d74f098b4fadb19369bfa43df758fa029ef466';
 export const JWT_EXPIRE = process.env.JWT_EXPIRE || '15m';
 export const JWT_REFRESH_EXPIRE = process.env.JWT_REFRESH_EXPIRE || '1d';
 export const DB = {

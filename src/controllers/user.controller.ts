@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 // import passport from 'passport';
-import type { IUser } from '@/models/user.model';
+import type { IUser, IUserToAuthJSON } from '@/models/user.model';
+import { IS_PRODUCTION } from '@/config/config';
 import { User } from '@/models/user.model';
 import ApiError from '@/utils/ApiError';
 import logger from '@/config/logger';
@@ -24,6 +25,8 @@ const setLocalUser = (req: Request, res: Response, user: any | null | undefined)
 		res.locals.isLogged = false;
 		res.locals.user = null;
 	}
+
+	console.log({ user: user, reqUser: req.user, resLocalIsLogged: res.locals.isLogged, resLocalUser: res.locals.user });
 };
 
 const checkIsLogged = (req: Request, res: Response) => {
@@ -66,12 +69,33 @@ const allLogout = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
-	const user = await User.findOne({ _id: req.params.id, isActive: true }).populate({ path: 'roles', match: { isActive: true }, select: '-_id name' });
-	if (!!user) {
-		const { hash_password, salt, ...resUser } = user;
-		setLocalUser(req, res, resUser);
+	const { password, email } = req.body;
+	const user = await User.findOne({ email, isActive: true }).populate({ path: 'roles', match: { isActive: true }, select: '-_id name' });
+
+	let errorMessage = '';
+	if (!user || !user.validPassword(password)) (errorMessage = 'Invalid email or password'), res.render('/admin/login', { error: errorMessage });
+	if (!user.isActive) (errorMessage = 'Kullanıcınız henüz aktif değil'), res.render('/admin/login', { error: errorMessage });
+	if (!user.roles.length) (errorMessage = 'Kullanıcınız henüz bir role sahip değil. Lütfen bekleyiniz'), res.render('/admin/login', { error: errorMessage });
+
+	// return done(null, user.toAuthJSON());
+	console.log({ user: user });
+
+	const foundUser: IUserToAuthJSON = user?.toAuthJSON();
+	console.log({ foundUser: foundUser });
+
+	if (!!foundUser) {
+		setLocalUser(req, res, foundUser);
+		req.login(foundUser, { session: false }, (error: unknown) => {
+			if (error) {
+				res.locals.error = error;
+				res.render(`${PRIVATE_URI_SCHEME_REDIRECT}/login`, { error });
+			}
+			res.cookie('jwt', foundUser.token, { httpOnly: IS_PRODUCTION, secure: IS_PRODUCTION }); // Note: Production'da secure true olmalı unutma!
+
+			res.redirect('/admin');
+		});
 	}
-	res.redirect('/');
+
 	// return getLogin(req, res);
 	// let renderOptions: RenderOption = { contentText: 'login page', title: 'Login' };
 	// try {
@@ -99,7 +123,7 @@ const postLogin = async (req: Request, res: Response, next: NextFunction) => {
 	// 			const token = `${_user.token}`;
 
 	// 			/** Assign our jwt to the cookie */
-	// 			res.cookie('jwt', token, { httpOnly: true, secure: false }); // Note: Production'da secure true olmalı unutma!
+	// 			res.cookie('jwt', token, { httpOnly: IS_PRODUCTION, secure: IS_PRODUCTION }); // Note: Production'da secure true olmalı unutma!
 	// 			setLocalUser(req, res, _user);
 	// 			// res.status(httpStatus.OK).json({ username: payload.username });
 	// 			res.redirect(httpStatus.FOUND, `${PRIVATE_URI_SCHEME_REDIRECT}`);

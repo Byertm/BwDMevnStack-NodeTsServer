@@ -1,3 +1,5 @@
+// import { IUserToAuthJSON } from '@/models/user.model';
+
 declare global {
 	export namespace Express {
 		// import {  Types } from 'mongoose';
@@ -7,8 +9,9 @@ declare global {
 		// }
 
 		export interface Request {
-			users?: { id: string | number };
 			// user?: User | undefined;
+			// user?: IUserToAuthJSON | User | undefined;
+			// users?: { id: string | number };
 		}
 	}
 }
@@ -21,3 +24,12 @@ declare global {
 // }
 
 export {};
+
+// declare global {
+//     namespace Express {
+//         interface AuthInfo {}
+//         interface User {}
+
+//         interface Request {
+//             authInfo?: AuthInfo | undefined;
+//             user?: User | undefined;
