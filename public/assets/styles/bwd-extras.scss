@@ -1,6 +1,19 @@
 $var1: #ffffff;
 $var2: #cfcfcf;
 
+:root {
+	--scrollbar-bg-color: #c3c3c3;
+	--scrollbar-thumb-color: #e7e7e7;
+	--scrollbar-thumb-bg-color: rgba(255, 255, 255, 0.1);
+	--scrollbar-thumb-shadow-color: rgba(0, 0, 0, 0.25);
+	&.dark {
+		--scrollbar-bg-color: #313642;
+		--scrollbar-thumb-color: #2a2d35;
+		--scrollbar-thumb-bg-color: rgba(255, 255, 255, 0.1);
+		--scrollbar-thumb-shadow-color: rgba(0, 0, 0, 0.25);
+	}
+}
+
 .healthy {
 	display: flex;
 	flex-direction: column;
@@ -218,13 +231,16 @@ body {
 ::-webkit-scrollbar-corner {
 	width: 0.5rem;
 	height: 0.5rem;
-	background-color: #313642;
+	// background-color: #313642;
+	background-color: var(--scrollbar-bg-color);
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: rgba(255, 255, 255, 0.1);
+	// background-color: rgba(255, 255, 255, 0.1);
+	background-color: var(--scrollbar-thumb-bg-color);
 	min-height: 60px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	// box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 5px var(--scrollbar-thumb-shadow-color);
 }
 
 ::selection {
@@ -235,7 +251,7 @@ body {
 
 ::selection {
 	background: #39f;
-	color: #fff;
+	color: #ffffff;
 	text-shadow: none;
 }
 
