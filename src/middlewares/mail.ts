@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
-import HTML_TEMPLATE from '@/middlewares/mail-template';
+import HTML_TEMPLATE, { BODY_TEMPLATE, ContactFormValues } from '@/middlewares/mail-template';
 import { NODEMAILER_AUTH_EMAIL, NODEMAILER_AUTH_PASSWORD } from '@/config/config';
 
 // create reusable transporter object using the default SMTP transport
@@ -11,8 +11,8 @@ const transporter = nodemailer.createTransport({
 	secure: false,
 	auth: {
 		user: NODEMAILER_AUTH_EMAIL,
-		pass: NODEMAILER_AUTH_PASSWORD,
-	},
+		pass: NODEMAILER_AUTH_PASSWORD
+	}
 });
 
 /** create reusable sendmail function
@@ -29,18 +29,19 @@ const SENDMAIL = async <T>(mailDetails: Mail.Options, callback: (err: Error | nu
 	}
 };
 
-// Example Mail Send
-const EXAMPLE_SENDMAIL = async () => {
-	const message = 'Hi there, you were emailed me through nodemailer';
+// Coctact Mail Send
+const CONTACT_SENDMAIL = async (message: string) => {
+	const subject = 'BwDServer - İletişim Formu';
+	const text = 'Merhaba, bu e-posta BwDServer üzerinden gönderildi.';
 	const options: Mail.Options = {
-		from: 'NodeJS API TESTING <byertm.webdesing@gmail.com>', // sender address
+		from: 'BwDServer <byertm.webdesing@gmail.com>', // sender address
 		to: 'byertm.webdesing@gmail.com', // receiver email
-		subject: 'Send email in Node.JS with Nodemailer using Gmail account', // Subject line
-		text: message,
-		html: HTML_TEMPLATE(message),
+		subject, // Subject line
+		text,
+		html: HTML_TEMPLATE(message)
 	};
 
-	await SENDMAIL(options, (info) => {
+	await SENDMAIL(options, (_err: Error, info: unknown) => {
 		console.log(options);
 		console.log('Email sent successfully');
 		console.log('info', JSON.stringify(info));
@@ -48,6 +49,6 @@ const EXAMPLE_SENDMAIL = async () => {
 	});
 };
 
-export { SENDMAIL, EXAMPLE_SENDMAIL };
+export { SENDMAIL, CONTACT_SENDMAIL, BODY_TEMPLATE, ContactFormValues };
 
 export default SENDMAIL;

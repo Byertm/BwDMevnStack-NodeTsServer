@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import { generateAccessJWT, verifyRefreshJWT } from '@/middlewares/generateJWT';
-import { EXAMPLE_SENDMAIL } from '@/middlewares/mail';
+import { BODY_TEMPLATE, ContactFormValues, CONTACT_SENDMAIL } from '@/middlewares/mail';
 import { IUser, User } from '@/models/user.model';
 import { Role } from '@/models/role.model';
 import ApiError from '@/utils/ApiError';
@@ -19,9 +19,17 @@ const getTest = async (_req: Request, res: Response) => {
 	res.render('test', { contentText: 'Test', title: 'Test Pages', layout: 'main' });
 };
 
-const getSendMail = async (_req: Request, res: Response) => {
-	await EXAMPLE_SENDMAIL();
+const sendMailTest = async (_req: Request, res: Response) => {
+	await CONTACT_SENDMAIL('Bu bir test e-postasıdır.');
 	res.render('home', { title: 'Mail Gönderildi', contentText: 'Mail Gönderildi', layout: 'main' });
+};
+
+const postSendContactMail = async (req: Request, res: Response) => {
+	const { name, email, phone, subject, message } = req.body;
+	const mailParams: ContactFormValues = { name, email, phone, subject, message };
+	const mailBody: string = BODY_TEMPLATE(mailParams);
+	await CONTACT_SENDMAIL(mailBody);
+	res.send({ message: 'Mail Gönderildi', error: false });
 };
 
 const getHealthy = async (_req: Request, res: Response) => {
@@ -92,5 +100,5 @@ const getNotFound = async (req: Request, res: Response) => {
 	logger.error(req.url);
 };
 
-export { getTest, getAbout, getContact, getSendMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
-export default { getTest, getAbout, getContact, getSendMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
+export { getTest, getAbout, getContact, sendMailTest, postSendContactMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
+export default { getTest, getAbout, getContact, sendMailTest, postSendContactMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
