@@ -34,8 +34,8 @@ export const UPLOAD_DIR = process.env.UPLOAD_DIR || 'uploads/images';
 export const UPLOAD_MAN_DIR = process.env.UPLOAD_MAN_DIR || 'uploads/manager';
 
 const getWhiteListDomains = () => {
-	const ADMIN_PROJECT_LINKS = ['https://bwd-mevn-stack-admin.vercel.app/', 'https://bwd-mevn-stack-admin.vercel.app'];
-	const FRONT_PROJECT_LINKS = ['https://bwd-mevn-stack-front.vercel.app/', 'https://bwd-mevn-stack-front.vercel.app'];
+	const ADMIN_PROJECT_LINKS = ['https://bwd-mevn-stack-admin.vercel.app/', 'https://bwd-mevn-stack-admin.vercel.app', 'https://eb-admin.netlify.app/', 'https://eb-admin.netlify.app'];
+	const FRONT_PROJECT_LINKS = ['https://bwd-mevn-stack-front.vercel.app/', 'https://bwd-mevn-stack-front.vercel.app', 'https://eb-ws.netlify.app/', 'https://eb-ws.netlify.app'];
 	const LOCAL_DEV_LINKS_AND_PORTS = ['http://localhost/', 'http://localhost'];
 
 	if (!IS_PRODUCTION) {
