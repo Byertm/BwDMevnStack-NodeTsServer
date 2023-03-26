@@ -1,7 +1,7 @@
 import { Schema, Document, model, Types } from 'mongoose';
 // import uniqueValidator from 'mongoose-unique-validator';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 import { JWT_EXPIRE, JWT_REFRESH_EXPIRE, JWT_REFRESH_SECRET, JWT_SECRET } from '@/config/config';
 import { DefaultSchemaOptions, IDocument } from '@/models/mixin';
 
@@ -59,13 +59,12 @@ schema.virtual('name').get(function (this: IUserModel) {
 });
 
 schema.methods.setPassword = function (password: string) {
-	this.salt = crypto.randomBytes(16).toString('hex');
-	this.hash_password = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+	this.salt = bcrypt.genSaltSync(16);
+	this.hash_password = bcrypt.hashSync(password, this.salt);
 };
 
 schema.methods.validPassword = function (password: string): boolean {
-	const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-	return this.hash_password === hash;
+	return bcrypt.compareSync(password, this.hash_password);
 };
 
 schema.methods.generateJWT = function (): string {
