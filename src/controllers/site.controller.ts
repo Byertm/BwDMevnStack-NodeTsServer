@@ -24,8 +24,9 @@ const getAll = async (req: Request, res: Response) => {
 };
 
 const getById = async (req: Request, res: Response, next: NextFunction) => {
+
 	try {
-		const site = await Site.findOne({ _id: req.params.id, isActive: true });
+		const site = await Site.findOne({ _id: req.params.id });
 		if (!site) throw new ApiError(httpStatus.NOT_FOUND, 'Site not found');
 		res.status(httpStatus.OK).json(site);
 	} catch (e) {

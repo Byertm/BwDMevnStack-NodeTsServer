@@ -184,20 +184,8 @@ const getNotFound = async (req: Request, res: Response) => {
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		logger.debug('%o', req.user);
-		const user = await User.find({}).populate({ path: 'roles', match: { isActive: true }, select: '-_id name' });
-		const resUsers = user.map((u) => {
-			return {
-				id: u._id,
-				first_name: u.first_name,
-				last_name: u.last_name,
-				name: u.name,
-				email: u.email,
-				roles: u.roles,
-				isActive: u.isActive
-				// createdAt: u.createdAt,
-				// updatedAt: u.updatedAt
-			};
-		});
+		const user = await User.find({}).populate('roles', '_id name'); // .populate({ path: 'roles', match: { isActive: true }, select: '-_id name' });
+		const resUsers = user.map((u) => ({ id: u._id, first_name: u.first_name, last_name: u.last_name, name: u.name, email: u.email, roles: u.roles, isActive: u.isActive }));
 		res.status(httpStatus.OK).json(resUsers);
 	} catch (e) {
 		next(e);
@@ -206,9 +194,11 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 
 const getById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const user = await User.findOne({ _id: req.params.id, isActive: true }).populate({ path: 'roles', match: { isActive: true }, select: '-_id name' });
+		const user = await User.findOne({ _id: req.params.id, isActive: true }); //.populate({ path: 'roles', match: { isActive: true }, select: '-_id name' });
 		if (!user) throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-		const { hash_password, salt, ...resUser } = user;
+		await user.populate('roles', '_id name');
+		user.populated('roles');
+		const resUser = { id: user._id, first_name: user.first_name, last_name: user.last_name, name: user.name, email: user.email, roles: user.roles, isActive: user.isActive };
 		res.status(httpStatus.OK).json(resUser);
 	} catch (e) {
 		next(e);

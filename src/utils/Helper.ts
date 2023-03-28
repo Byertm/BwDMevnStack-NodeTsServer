@@ -2,7 +2,10 @@ import fs from 'fs';
 import os from 'os';
 import dns from 'dns';
 import type { Request } from 'express';
+import { DOTENV } from '@/config/config';
 export * as TypeOfs from '@/utils/TypeOfs';
+
+DOTENV.config();
 
 const getWriteConseleFromRequestProps = (req: Request) => {
 	console.log('FILE_PATH reg - Start');
