@@ -1,4 +1,4 @@
-import { Schema, Document, model, Types } from 'mongoose';
+import { Schema, Document, model, Types, Model } from 'mongoose';
 // import uniqueValidator from 'mongoose-unique-validator';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
@@ -35,6 +35,14 @@ export default interface IUserModel extends Document, IUser {
 	verifyJWT(token: string): JwtPayload | string;
 	verifyRefreshJWT(token: string): JwtPayload | string;
 	name: string;
+}
+
+export interface IUserModelExtended extends Model<IUserModel> {
+	STA_VerifyAccessJWT(token: string): JwtPayload | string;
+	STA_VerifyRefreshJWT(token: string): JwtPayload | string;
+	STA_VerifyJWT(token: string, jwtType: 'accessToken' | 'refreshToken'): JwtPayload | string;
+	getIsValidUserByUserEmail(email: string): Promise<boolean>;
+	getUser(email: string): Promise<IUserToAuthJSON>;
 }
 
 const schema = new Schema<IUserModel>(
@@ -88,13 +96,26 @@ schema.methods.toAuthJSON = function (): IUserToAuthJSON {
 	return { name, first_name, last_name, email, roles, token: this.generateJWT(), refresh_token: this.generateRefreshJWT() } as IUserToAuthJSON;
 };
 
-schema.methods.getIsValidUserByUserEmail = async function (email: string): Promise<boolean> {
+schema.statics.getIsValidUserByUserEmail = async function (email: string): Promise<boolean> {
 	const user = await User.findOne({ email });
 	return !!user;
 };
 
-schema.methods.getUser = async function (email: string): Promise<IUserModel> {
+schema.statics.getUser = async function (email: string): Promise<IUserModel> {
 	return await User.findOne({ email });
 };
 
-export const User = model<IUserModel>('User', schema);
+schema.statics.STA_VerifyAccessJWT = function (token: string): JwtPayload | string {
+	return jwt.verify(token, JWT_SECRET);
+};
+
+schema.statics.STA_VerifyRefreshJWT = function (token: string): JwtPayload | string {
+	return jwt.verify(token, JWT_REFRESH_SECRET);
+};
+
+schema.statics.STA_VerifyJWT = function (token: string, jwtType: 'accessToken' | 'refreshToken'): JwtPayload | string {
+	return jwt.verify(token, jwtType === 'accessToken' ? JWT_SECRET : JWT_REFRESH_SECRET);
+	// return jwtType === 'accessToken' ? User.STA_VerifyAccessJWT() : User.STA_VerifyRefreshJWT();
+};
+
+export const User = model<IUserModel, IUserModelExtended>('User', schema);

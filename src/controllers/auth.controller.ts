@@ -1,11 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
-import { generateAccessJWT, verifyRefreshJWT } from '@/middlewares/generateJWT';
 import { BODY_TEMPLATE, ContactFormValues, CONTACT_SENDMAIL } from '@/middlewares/mail';
+import type { JwtPayload } from 'jsonwebtoken';
 import { IUser, User } from '@/models/user.model';
 import { Role } from '@/models/role.model';
 import ApiError from '@/utils/ApiError';
 import logger from '@/config/logger';
+
+const getIframe = async (req: Request, res: Response) => {
+	const { prefix: pPrefix, url: pUrl } = req.params;
+	const prefixAndUrl = `${pPrefix}/${pUrl}` || 'api/category';
+	const url = `${req.protocol}://${req.headers.host}/${prefixAndUrl}`;
+
+	const { protocol, headers, originalUrl, url: reqUrl, baseUrl } = req;
+
+	res.render('iframe', { iframeSrc: url, request: JSON.stringify({ protocol, headers, originalUrl, url: reqUrl, baseUrl }), layout: 'main' });
+};
 
 const getAbout = async (_req: Request, res: Response) => {
 	res.render('home', { contentText: 'Hakkında', title: 'Hakkında Sayfası', layout: 'main' });
@@ -39,15 +49,13 @@ const getHealthy = async (_req: Request, res: Response) => {
 // Refresh Token
 const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const { refreshToken, email } = req.body;
-		const user = await User.findOne({ email });
-		if (!user) throw new ApiError(httpStatus.UNPROCESSABLE_ENTITY, 'User bulunmadı');
-		// Bu kısım belki taşınabilir.
-		// const verifyJwt = jwt.verify(refreshToken, JWT_REFRESH_SECRET);
-		console.log('refreshToken', refreshToken);
-		const tokenVerify = verifyRefreshJWT(refreshToken);
-		console.log('verifyJwt', tokenVerify);
+		const { refreshToken } = req.body;
+		const tokenVerify = await User.STA_VerifyRefreshJWT(refreshToken);
 		if (!tokenVerify) throw new ApiError(httpStatus.UNAUTHORIZED, 'Token not verify, please a login');
+		const { email } = <JwtPayload>tokenVerify;
+		console.log({ verifyJwt: tokenVerify, email });
+		const user = await User.findOne({ email }).populate({ path: 'roles', match: { isActive: true }, select: '-_id name' });
+		if (!user) throw new ApiError(httpStatus.UNPROCESSABLE_ENTITY, 'User bulunmadı');
 		res.json(user.toAuthJSON());
 	} catch (e) {
 		next(e);
@@ -58,7 +66,7 @@ const refreshToken = async (req: Request, res: Response, next: NextFunction) => 
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const { email, password } = req.body;
-		const user = await User.findOne({ email });
+		const user = await User.findOne({ email }).populate({ path: 'roles', match: { isActive: true }, select: '-_id name' });
 		if (!user || !user.validPassword(password)) throw new ApiError(httpStatus.UNPROCESSABLE_ENTITY, 'Invalid email or password');
 		if (!user.isActive) throw new ApiError(httpStatus.UNAUTHORIZED, 'Kullanıcınız henüz aktif değil');
 		if (!user.roles.length) throw new ApiError(httpStatus.UNAUTHORIZED, 'Kullanıcınız henüz bir role sahip değil. Lütfen bekleyiniz');
@@ -100,5 +108,5 @@ const getNotFound = async (req: Request, res: Response) => {
 	logger.error(req.url);
 };
 
-export { getTest, getAbout, getContact, sendMailTest, postSendContactMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
-export default { getTest, getAbout, getContact, sendMailTest, postSendContactMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
+export { getTest, getIframe, getAbout, getContact, sendMailTest, postSendContactMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
+export default { getTest, getIframe, getAbout, getContact, sendMailTest, postSendContactMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
