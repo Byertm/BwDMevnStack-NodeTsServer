@@ -8,7 +8,6 @@ import compression from 'compression';
 import session from 'express-session';
 import httpStatus from 'http-status';
 import passport from 'passport';
-// import xss from 'xss-clean'
 import helmet from 'helmet';
 import debug from 'debug';
 import cors from 'cors';
@@ -55,7 +54,7 @@ passport.use(anonymousStrategy);
 passport.use('localJWT', jwtLocalStrategy);
 
 app.use(passport.initialize());
-app.use(session({ secret: JWT_SECRET, resave: false, saveUninitialized: true })); //express-session
+app.use(session({ secret: JWT_SECRET, resave: false, saveUninitialized: true, cookie: { httpOnly: true, secure: 'auto' } })); //express-session
 // app.use(passport.session()); //express-session
 // ! Note: Bu middleware kontrol edilecek.
 app.use(isSession);
@@ -83,7 +82,6 @@ app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser(JWT_SECRET));
 
 // Sanitize request data
-// app.use(xss())
 app.use(mongoSanitize());
 
 // Gzip compression
