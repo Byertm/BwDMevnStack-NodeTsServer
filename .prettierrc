@@ -10,17 +10,8 @@
 	"bracketSpacing": true,
 	"trailingComma": "none",
 	"overrides": [
-		{
-			"files": "*.ts",
-			"options": { "parser": "typescript", "printWidth": 180, "singleQuote": true }
-		},
-		{
-			"files": "*.hbs",
-			"options": { "parser": "html", "printWidth": 240, "singleQuote": false }
-		},
-		{
-			"files": "*.html",
-			"options": { "parser": "html", "printWidth": 240, "singleQuote": false }
-		}
+		{ "files": "*.ts", "options": { "parser": "typescript", "printWidth": 180, "singleQuote": true } },
+		{ "files": "*.hbs", "options": { "parser": "html", "printWidth": 240, "singleQuote": false } },
+		{ "files": "*.html", "options": { "parser": "html", "printWidth": 240, "singleQuote": false } }
 	]
 }

@@ -6,5 +6,5 @@ export const user = {
 	first_name: randFirstName(),
 	last_name: randLastName(),
 	email: randEmail(),
-	password,
+	password
 };

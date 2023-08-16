@@ -35,7 +35,7 @@ export const isSession: Handler = async (req: Request, res: Response, next: Next
 	res.locals.token = !!res.locals.user?.token;
 	res.locals.isLogged = !!res.locals.user?.name && !!res.locals.user?.token;
 
-	console.log({ 'res.locals': res.locals });
+	// console.log({ 'res.locals': res.locals });
 
 	if (req.session.cookie) {
 	}
