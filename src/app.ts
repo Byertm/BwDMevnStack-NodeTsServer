@@ -3,7 +3,6 @@ import { engine as hbsEngine } from 'express-handlebars';
 import { join, resolve } from 'path';
 import mongoSanitize from 'express-mongo-sanitize';
 import cookieParser from 'cookie-parser';
-import serverless from 'serverless-http';
 import compression from 'compression';
 import session from 'express-session';
 import httpStatus from 'http-status';
@@ -162,7 +161,5 @@ app.use(errorConverter);
 
 // Handle error
 app.use(errorHandler);
-
-export const handler = serverless(app);
 
 export default app;

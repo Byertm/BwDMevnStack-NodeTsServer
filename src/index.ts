@@ -2,6 +2,8 @@ import mongoose, { ConnectOptions } from 'mongoose';
 import { APP_PORT, APP_URI, DB, DB_URI, IS_TEST } from '@/config/config';
 import logger from '@/config/logger';
 import app, { debugLog } from '@/app';
+import serverless from 'serverless-http';
+import type ServerlessHttp from 'serverless-http';
 
 let dbURI: string;
 if (DB.HOST && DB.NAME && DB.PASSWORD && DB.USER) {
@@ -23,6 +25,8 @@ logger.info('connecting to database...');
 
 mongoose.set('strictQuery', false);
 
+let handlerServerless: ServerlessHttp.Handler;
+
 mongoose
 	.connect(dbURI, mongooseOptions)
 	.then(() => {
@@ -33,6 +37,8 @@ mongoose
 			logger.info(`server listening on ${APP_PORT}`);
 			logger.info(`Server Healty: ${APP_URI}`);
 		});
+
+		handlerServerless = serverless(app);
 	})
 	.catch((e) => {
 		logger.info('Mongoose connection error');
@@ -75,3 +81,5 @@ process.on('SIGTERM', () => {
 process.on('uncaughtException', (err) => {
 	logger.error('Uncaught Exception: ' + err);
 });
+
+export const handler = handlerServerless;
