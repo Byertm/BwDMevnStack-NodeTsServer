@@ -42,6 +42,25 @@ const postSendContactMail = async (req: Request, res: Response) => {
 	res.send({ message: 'Mail Gönderildi', error: false });
 };
 
+const getCheck = async (_req: Request, res: Response) => {
+	res.status(httpStatus.OK).json({
+		statusCode: httpStatus.OK,
+		statusMessage: httpStatus['200_MESSAGE'],
+		status: httpStatus[200]
+	});
+};
+
+const getHealth = async (_req: Request, res: Response) => {
+	const healthCheck = { uptime: process.uptime(), message: 'OK', timestamp: Date.now() };
+
+	try {
+		res.status(httpStatus.OK).send(healthCheck);
+	} catch (error) {
+		healthCheck.message = error;
+		res.status(httpStatus.SERVICE_UNAVAILABLE).send();
+	}
+};
+
 const getHealthy = async (_req: Request, res: Response) => {
 	res.render('healthy', { title: 'API is Healthy', contentText: 'Welcome to API', layout: 'main' });
 };
@@ -108,5 +127,21 @@ const getNotFound = async (req: Request, res: Response) => {
 	logger.error(req.url);
 };
 
-export { getTest, getIframe, getAbout, getContact, sendMailTest, postSendContactMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
-export default { getTest, getIframe, getAbout, getContact, sendMailTest, postSendContactMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
+export { getTest, getCheck, getHealth, getIframe, getAbout, getContact, sendMailTest, postSendContactMail, getHealthy, postLogin, postRegister, getMe, getNotFound, refreshToken };
+
+export default {
+	getTest,
+	getCheck,
+	getHealth,
+	getIframe,
+	getAbout,
+	getContact,
+	sendMailTest,
+	postSendContactMail,
+	getHealthy,
+	postLogin,
+	postRegister,
+	getMe,
+	getNotFound,
+	refreshToken
+};

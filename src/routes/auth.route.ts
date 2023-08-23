@@ -9,6 +9,8 @@ router.get('/about', controller.getAbout);
 router.get('/contact', controller.getContact);
 router.get('/test', controller.getTest);
 router.get('/sendmail', controller.sendMailTest);
+router.get('/check', controller.getCheck);
+router.get('/health', controller.getHealth);
 router.get('/healthy', controller.getHealthy);
 router.post('/contact', controller.postSendContactMail);
 router.post('/login', controller.postLogin);
