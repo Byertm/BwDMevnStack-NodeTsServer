@@ -92,7 +92,7 @@ const getById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const post = await Post.findOne({ _id: req.params.id, isActive: true });
 		if (!post) throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
-		res.status(httpStatus.OK).json(post);
+		else res.status(httpStatus.OK).json(post);
 	} catch (e) {
 		next(e);
 	}
@@ -101,6 +101,8 @@ const getById = async (req: Request, res: Response, next: NextFunction) => {
 const getBySlug = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const post = await Post.findOne({ slug: req.params.slug });
+		// if (!post) res.status(httpStatus.NOT_FOUND).send(new ApiError(httpStatus.NOT_FOUND, 'Post not found'));
+		// else res.status(httpStatus.OK).json(post);
 		if (!post) throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
 		res.status(httpStatus.OK).json(post);
 	} catch (e) {
