@@ -22,15 +22,39 @@
 				}
 			}
 		},
+		"/check": {
+			"get": {
+				"tags": ["BwdSwagger"],
+				"summary": "Get check system check",
+				"responses": {
+					"200": { "description": "API Healthy" },
+					"400": { "description": "Failed. Bad post data." },
+					"404": { "description": "Failed. Cat not found." },
+					"500": { "description": "API Down" }
+				}
+			}
+		},
+		"/health": {
+			"get": {
+				"tags": ["BwdSwagger"],
+				"summary": "Get health system check",
+				"responses": {
+					"200": { "description": "API Healthy" },
+					"400": { "description": "Failed. Bad post data." },
+					"404": { "description": "Failed. Cat not found." },
+					"500": { "description": "API Down" }
+				}
+			}
+		},
 		"/healthy": {
 			"get": {
 				"tags": ["BwdSwagger"],
 				"summary": "Get healthy system check",
 				"responses": {
-					"200": {},
-					"400": {},
-					"404": {},
-					"500": {}
+					"200": { "description": "API Healthy" },
+					"400": { "description": "Failed. Bad post data." },
+					"404": { "description": "Failed. Cat not found." },
+					"500": { "description": "API Down" }
 				}
 			}
 		},
