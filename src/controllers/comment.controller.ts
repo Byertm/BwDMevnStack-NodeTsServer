@@ -16,7 +16,12 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getAllSubComments = async (commentId: string): Promise<ICommentModel[]> => {
-	const subComments = await Comment.find({ parentId: commentId, isActive: true, isHidden: false, isBanned: false }).exec();
+	const subComments = await Comment.find({ parentId: commentId, isActive: true, isHidden: false, isBanned: false })
+		.populate({ path: 'author', match: { isActive: true }, select: 'first_name last_name name email' })
+		.populate({ path: 'postId', match: { isActive: true }, select: 'title slug author isActive' })
+		.populate({ path: 'createUserId', select: 'first_name last_name name email' })
+		.populate({ path: 'updateUserId', select: 'first_name last_name name email' })
+		.exec();
 	const results = await Promise.all(
 		subComments.map(async (comment) => {
 			const subs = await getAllSubComments(comment._id);
@@ -93,7 +98,11 @@ const authorMixin = async (req: Request) => {
 
 const getById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const comment = await Comment.findOne({ _id: req.params.id });
+		const comment = await Comment.findOne({ _id: req.params.id })
+			.populate({ path: 'author', match: { isActive: true }, select: 'first_name last_name name email' })
+			.populate({ path: 'parentId', select: 'title slug author isActive' })
+			.populate({ path: 'createUserId', select: 'first_name last_name name email' })
+			.populate({ path: 'updateUserId', select: 'first_name last_name name email' });
 		if (!comment) throw new ApiError(httpStatus.NOT_FOUND, 'Comment not found');
 		res.status(httpStatus.OK).json(comment);
 	} catch (e) {
