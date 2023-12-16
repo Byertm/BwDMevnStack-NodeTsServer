@@ -36,7 +36,7 @@ const getAllWithPagination = async (req: Request, res: Response) => {
 	// 	return res.json(response);
 	// }
 
-	// const totalCount = await Post.count({});
+	// const totalCount = await Post.countDocuments({});
 	// const totalPages = Math.ceil(totalCount / qSize);
 
 	// query.pageNumber = qPageNumber;
@@ -197,7 +197,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const post = await Post.findOne({ _id: req.params.id });
 		if (!post) throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
-		await post.deleteOne();
+		const deleteQuery = post.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

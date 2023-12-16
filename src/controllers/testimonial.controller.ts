@@ -72,7 +72,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const testimonial = await Testimonial.findOne({ _id: req.params.id });
 		if (!testimonial) throw new ApiError(httpStatus.NOT_FOUND, 'Testimonial not found');
-		await testimonial.deleteOne();
+		const deleteQuery = testimonial.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

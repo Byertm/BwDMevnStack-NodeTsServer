@@ -60,7 +60,7 @@ export const paginationHelper = async (req: Request, res: Response, model: typeo
 		qPageNumber = 1;
 	}
 
-	const totalCount = await model.count({});
+	const totalCount = await model.countDocuments({});
 	const totalPages = Math.ceil(totalCount / qSize);
 
 	query.pageNumber = qPageNumber;

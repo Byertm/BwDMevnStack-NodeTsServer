@@ -46,7 +46,7 @@ function swaggerDocs(app: Express, port: number) {
 	// * Swagger Options Changed
 
 	// Swagger page
-	app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+	app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { swaggerOptions: { docExpansion: 'none' } }));
 	// Docs in JSON format
 	app.get('/swagger.json', getSwaggerJsonFile);
 

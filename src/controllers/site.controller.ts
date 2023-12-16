@@ -126,7 +126,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const site = await Site.findOne({ _id: req.params.id });
 		if (!site) throw new ApiError(httpStatus.NOT_FOUND, 'Site not found');
-		await site.deleteOne();
+		const deleteQuery = site.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

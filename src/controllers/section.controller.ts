@@ -76,7 +76,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const section = await Section.findOne({ _id: req.params.id });
 		if (!section) throw new ApiError(httpStatus.NOT_FOUND, 'Section not found');
-		await section.deleteOne();
+		const deleteQuery = section.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

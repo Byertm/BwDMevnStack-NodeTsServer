@@ -59,7 +59,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const store = await Store.findOne({ _id: req.params.id });
 		if (!store) throw new ApiError(httpStatus.NOT_FOUND, 'Store not found');
-		await store.deleteOne();
+		const deleteQuery = store.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

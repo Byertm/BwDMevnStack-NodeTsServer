@@ -66,7 +66,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const tag = await Tag.findOne({ _id: req.params.id });
 		if (!tag) throw new ApiError(httpStatus.NOT_FOUND, 'Tag not found');
-		await tag.deleteOne();
+		const deleteQuery = tag.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

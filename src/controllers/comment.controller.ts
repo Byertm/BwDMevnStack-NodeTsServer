@@ -166,7 +166,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const comment = await Comment.findOne({ _id: req.params.id });
 		if (!comment) throw new ApiError(httpStatus.NOT_FOUND, 'Comment not found');
-		await comment.deleteOne();
+		const deleteQuery = comment.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

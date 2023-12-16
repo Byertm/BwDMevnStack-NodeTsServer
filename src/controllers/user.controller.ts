@@ -266,7 +266,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const user = await User.findOne({ _id: req.params.id });
 		if (!user) throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-		await user.deleteOne();
+		const deleteQuery = user.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

@@ -67,7 +67,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const experience = await Experience.findOne({ _id: req.params.id });
 		if (!experience) throw new ApiError(httpStatus.NOT_FOUND, 'Experience not found');
-		await experience.deleteOne();
+		const deleteQuery = experience.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

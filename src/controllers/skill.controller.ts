@@ -62,7 +62,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const skill = await Skill.findOne({ _id: req.params.id });
 		if (!skill) throw new ApiError(httpStatus.NOT_FOUND, 'Skill not found');
-		await skill.deleteOne();
+		const deleteQuery = skill.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

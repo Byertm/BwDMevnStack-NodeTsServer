@@ -225,7 +225,8 @@ const deleteFileById = async (req: Request, res: Response, next: NextFunction) =
 	try {
 		const file: any = await File.findOne({ _id: req.params.id });
 		if (!file) throw new ApiError(httpStatus.NOT_FOUND, 'File not found');
-		await file.deleteOne();
+		const deleteQuery = file.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

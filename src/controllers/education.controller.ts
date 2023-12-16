@@ -67,7 +67,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const education = await Education.findOne({ _id: req.params.id });
 		if (!education) throw new ApiError(httpStatus.NOT_FOUND, 'Education not found');
-		await education.deleteOne();
+		const deleteQuery = education.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);

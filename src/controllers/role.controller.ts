@@ -59,7 +59,8 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const role = await Role.findOne({ _id: req.params.id });
 		if (!role) throw new ApiError(httpStatus.NOT_FOUND, 'Role not found');
-		await role.deleteOne();
+		const deleteQuery = role.deleteOne();
+		await deleteQuery;
 		res.status(httpStatus.NO_CONTENT).send();
 	} catch (e) {
 		next(e);
